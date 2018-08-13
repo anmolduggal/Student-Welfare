@@ -1,0 +1,51 @@
+
+	<% include ./partials/header %>		
+
+	 
+<form action="/complaint" method="post" class="container " style="padding-top: 20px;">
+	<div class="jumbotron">
+		<div class="container">
+		  	<div class="form-group row">
+
+			<select class="form-control"  name="basic" id="complaint">
+			<option selected="selected" disabled>Type of Complaint</option>
+		    <option>Hostel Complaint</option>
+		    <option>Academic Complaint</option>
+		    </select>
+			</div>
+		  	<div class="form-group row">
+			<select class="form-control" id="subtypecomp" name="complaintType" required>
+			</select>
+			</div>
+		 	<div class="form-group row">
+			<select class="form-control" name="comp1" id="comp1" name="comp1">
+			</select>
+			</div>
+		 	<div class="form-group row">
+			<select class="form-control" name="comp2" id="comp2" name="comp2">
+			</select>
+			</div>
+		<div class="form-group row">
+			<select class="form-control" name="comp3" id="comp3" name="comp3">
+			</select>
+			</div>
+		<div class="form-group row">
+			<select class="form-control" name="comp4" id="comp4" name="comp4">
+			</select>
+			</div>
+		<div class="form-group row">
+		 <div style="width:100%;"><center>  <textarea rows="5" cols="50%" name="complaintDesc" id="box" placeholder="Breifly Describe Your Complaint"></textarea></center></div>
+		 	</div>
+		 	<div class="form-group row">
+		   <input type="submit" name="Submit" class="btn btn-primary btn-lg btn-block active">
+		</div> 	
+		</div>
+		</div>
+		</form>
+		<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+		<script src="/script/complaint.js"></script>
+	<% include ./partials/footer %>		
+	

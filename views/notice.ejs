@@ -1,0 +1,27 @@
+	<% include ./partials/header %>		
+
+
+<div class="container">
+	<center><h1> <%= heading %> </h1></center>
+	<div class="row">
+
+		 
+		 
+	  <% notices.forEach(function(notice){ %>
+	 
+		<div class="card border-primary mb-3 col-lg-4 col-sm-12 col-md-6 padd " style="max-width: 18rem;">
+  <div class="card-header"><%= notice.noticeDesc %></div>
+<embed src="/uploads/<%= notice.pdf %>" type="application/pdf" class="card-img-top" alt="notice"/>
+
+  <div class="card-body text-primary">
+  <a href="/uploads/<%= notice.pdf %>" class="btn btn-success card-title" download><img src="/logo/download.png" style="height: 25px" ></a>  <a href="/uploads/<%= notice.pdf %>" class="btn btn-info active card-title" >View Full-Screen</a>
+  <p class="card-text"><%= notice.date %></p>
+  <% if(currentUser._id.equals(notice.userid) || currentUser.isAdmin==true){ %>
+  <form action="/notice/<%= notice._id %>" method="POST">
+  <BUTTON class="btn btn-danger">Delete</BUTTON></form>
+<% } %>
+   	
+</div></div>
+<% }); %>	
+
+	<% include ./partials/footer %>		

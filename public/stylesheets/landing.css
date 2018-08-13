@@ -1,0 +1,68 @@
+body {
+  background-color: #cacaca;
+}
+
+.slideshow { 
+
+	margin-top: 150px;
+	margin-left: 85px;
+  width: 86.8%;
+  height: 70%;
+  position: fixed;
+ 
+  top: 0;
+  left: 0;
+  z-index: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+} 
+.slideshow li {
+
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 75% 50%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  animation: imageAnimation 50s linear infinite; 
+}
+
+.slideshow li:nth-child(1) { 
+  background-image: url(https://www.noticebard.com/wp-content/uploads/2018/02/motilal-nehru-national-institute-of-technology-mnnit-allahabad.jpg) 
+}
+.slideshow li:nth-child(2) { 
+  background-image: url(http://www.mnnitalumni.org/images/MNNITGate.jpg);
+  animation-delay: 10s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvzCX088ncy1WqVWaGQAe6bhwgI72JJgK0pH4mSP6I6d-oVOiF);
+  animation-delay: 20s; 
+}
+.slideshow li:nth-child(4) { 
+  background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
+  animation-delay: 30s; 
+}
+.slideshow li:nth-child(5) { 
+  background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
+  animation-delay: 40s; 
+}
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}

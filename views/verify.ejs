@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login page</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
+  <meta http-equiv='Cache-Control', content='no-store, no-cache, must-revalidate'>
+<meta http-equiv='Pragma', content='no-cache'>
+<meta http-equiv='Expires', content='-1'> 
+	<link href="https://fonts.googleapis.com/css?family=Arvo|Bitter|Copse|Cutive|Lora:700|Sanchez|Scope+One|Slabo+27px|Trocchi|Vesper+Libre" rel="stylesheet">	
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+		<form action="/verify" method="post">
+			<div class="row">
+				<span>Email Id</span>
+			<input type="Email" class="form-control" name="email" placeholder="Email" required>
+		</div>
+		<div class="row">
+			<span>Verification Code</span>
+			<input type="password" class="form-control" name="verify" placeholder="Verification Code" required>
+
+		</div>
+		<center><input type="submit" value="verify" class="btn btn-success"></center>
+	</form>
+	</div>
+	</div>
+	</body>

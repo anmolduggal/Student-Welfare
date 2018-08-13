@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login page</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
+	<link rel="stylesheet" type="text/css" href="/stylesheets/mainpage.css">
+  <meta http-equiv='Cache-Control', content='no-store, no-cache, must-revalidate'>
+<meta http-equiv='Pragma', content='no-cache'>
+<meta http-equiv='Expires', content='-1'> 
+	<link href="https://fonts.googleapis.com/css?family=Arvo|Bitter|Copse|Cutive|Lora:700|Sanchez|Scope+One|Slabo+27px|Trocchi|Vesper+Libre" rel="stylesheet">	
+</head>
+<body >
+
+
+          <% if(error && error.length > 0){ %>
+              <div class="container ">
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div></div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="container">
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div></div>
+        <% } %>
+    
+    <div class="container ">
+	<div class="jumbotron">
+<h1 class="display-4"><strong><img src="/logo/logonew1.png" class="img-thumbnail " /> <span style="margin-left: 100px"> Login</span></strong></h1> 
+  <hr>
+  <form action="/login" method="post" style="padding-left: 100px">
+  <div class="form-group row">
+    <label  class="col-sm-2	 col-form-label"><h4>Email Id</h4></label>
+    <div class="col-sm-10">
+      <input type="email" name="username" class="form-control" placeholder="Email Id">
+    </div>
+  </div>
+  <div class="form-group row">
+  <label for="inputPassword" class="col-sm-2 col-form-label"><h4>Password</h4></label>
+    <div class="col-sm-10">
+      <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+    </div>
+  </div>
+  <center><input type="submit" href="index.html" class="btn btn-primary btn-lg active"  aria-pressed="true" value="Login">
+  </form>
+    <a href="signup" class="btn btn-primary btn-lg active buttonpadding " role="button" aria-pressed="true">Sign Up</a>
+    
+  </center></form></div></div>    </body>
+</html>

@@ -1,0 +1,49 @@
+.container{
+	
+	margin-top: 40px;
+}
+.form-control{
+
+	width:50%;
+}
+
+
+body{ 
+    
+    background-image: url("http://schoolbook.getmyuni.com/assets/images/rev_img/6303__1113/1431346672IMG_20140717_132456.jpg");
+    height: 100%; 
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.jumbotron{
+	background: rgba(255, 255, 255, 0.5);
+}
+hr {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px  #3d3c3c inset;
+}
+.display-4{
+	
+font-family: 'Lora', serif;
+
+
+}
+.img-thumbnail{
+	width:30%;
+	background: rgba(255, 255, 255, 0.0	);
+	border: 0px;
+}
+.a{
+	padding-top: 20px;
+}
+.buttonpadding{
+	margin-left: 20px;
+	margin-right: 200px;
+}
+.heading{
+	font-family: 'Markazi Text', serif;
+
+}

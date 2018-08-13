@@ -1,0 +1,71 @@
+	
+  <% include ./partials/header %>
+
+	  <% foundcomplaint.forEach(function(complaints){ %>
+	
+	 <div class="row">
+	<div class="container">
+		<div class="card viewcomplaint" >
+			<% if(currentUser.isStaff==true){ %>
+			 <div class="card-header" style="background:#0043ff38">
+   Applicant Name: <%= complaints.firstname %>  <%= complaints.secondname %> Roll:<%= complaints.roll %> Regno:<%= complaints.regno %>
+  </div>
+			<% } %>
+  <div class="card-header">
+ <strong><center><%= complaints.complaint %></center></strong>
+  </div>
+  <div class="card-body" >
+    <h5 class="card-title"><%= complaints.complaintType %>( <%= complaints.comp1 %> ) :- 	</h5>
+    <p class="card-text" style="text-align: justify;">
+      <h6><% if(complaints.comp2){ %>
+      <%= complaints.comp2 %>
+      <hr>
+      <% } %>
+      <% if(complaints.comp3){ %>
+      <%= complaints.comp3 %>
+      <hr>
+      <% } %>
+      <% if(complaints.comp4){ %>
+      <%= complaints.comp4 %>
+      <hr>
+      <% } %></h6>
+      <%= complaints.complaintDesc %></p>
+    <a href="#" class= <%if(complaints.status== "Pending.."){ %>"btn btn-warning"<% }else if(complaints.status=="Rejected"){ %>"btn btn-danger"
+  <%  } else{ %>"btn btn-success" <% } %> > <%= complaints.status %></a>
+	
+    <% if(((currentUser.branch==complaints.branch && currentUser.isStaff==true)||(currentUser.isAdmin==true)) && complaints.status=="Pending.."){ %>
+    <form method="post" action="/complaint/resolve/<%= complaints._id %>">
+    <input type="text" name="reply" class="form-control top" placeholder="Reply / Feedback" required>
+    <center><input type="submit"  value="Resolved" name="resolve" class="btn btn-success top">
+    <input type="submit" value="Reject" name="reject" class="btn btn-danger top"></center>
+</form> 
+<% } %>
+
+  </div>
+  <% complaints.feedback.forEach(function(feedbacks){
+	if(feedbacks.feedbackdata!=null){ %>
+  	<div class="card-footer " style="background:#0043ff38">User Feedback : <%= feedbacks.feedbackdata %>
+  	<br><%= feedbacks.feedbackdate %></div>
+  	<% }}) %>
+   <% complaints.reply.forEach(function(replies){
+	if(replies.replydata!=null){ %>
+  <div class="card-footer " style="background: #def9e5">Reply : <%= replies.replydata %>
+  <br><%= replies.replydate %></div>
+  <% }}) %>
+	
+  <% if(currentUser.isStaff==false && complaints.status!="Pending.." && complaints.isSatisfied==false){ %>
+
+	<form method="post" class="top" action="/complaint/satisfaction/<%= complaints._id %>">
+    <input type="text" name="feedback" class="form-control top" placeholder="Reason( If Unsatisfied )" >
+	<center><input type="submit" name="satisfied" class="btn btn-success top " value="Satisfied">
+	<input type="submit" class="btn btn-warning top" value="Unsatisfied" name="unsatisfied"></center>	
+	</form>    
+	<br>
+	<%  } %>
+  <div class="card-footer text-muted "><center><%= complaints.date %></center></div>
+</div>
+</div></div>
+<% }); %>
+	
+	<% include ./partials/footer %>
+	

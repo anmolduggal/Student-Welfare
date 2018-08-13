@@ -1,0 +1,43 @@
+	<% include ./partials/header %>
+		
+	   <form action="/notice/submitnotice" method="post"  class="container" id="subnotice" style="padding-top: 20px;" enctype="multipart/form-data">
+	<div class="jumbotron" >
+	<select class="form-control form-control-lg" name="noticeType" required>
+		<option disabled selected>Notice Type</option>
+		<option>Academic Notice</option>
+		<option>Hostel Notice</option>
+
+				</select>
+			
+				<br>
+
+		<input type="text" class="form-control form-control-lg" name="noticeDesc" placeholder="Notice Description" required/>
+		<div class="form-group top">
+	    <div class="form-check">
+	      <input class="form-check-input" type="checkbox" name="forAll" id="gridCheck">
+	      <label class="form-check-label alert-danger" for="gridCheck">
+	        For All
+	      </label>
+	    </div>
+	  </div>
+	<span style="color:red">Only Pdfs are allowed</span>	
+	<div class="input-group mb-3">
+	    <label class="input-group-prepend ">
+	        <span class="btn btn-primary">
+	            Browse <input id="my-file-selector" name ="file" type="file" style="display:none;" onchange="$('#upload-file-info').val($(this).val()); " required>
+	        </span>
+	    </label>
+
+	    <div class="custom-file">
+	    <input type="text" class="form-control" id="upload-file-info" style="background-color: white" readonly>
+	    <div class="input-group-append ">
+	   <input type="submit" class="btn btn-success" id="submit" value="Submit"/>
+	  </div>
+	</div>
+		<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+		<script src="/script/notice.js"></script>
+	<% include ./partials/footer %>		
+		

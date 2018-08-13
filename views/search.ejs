@@ -1,0 +1,39 @@
+	<% include ./partials/header %>		
+
+<%if(heading=="Not Found"){ %>
+<center><h4 class="alert alert-primary">No Data Found</h4></center>
+    <% } %>
+   <% users.forEach(function(user){
+  		if(user.isStaff==false){
+     %>
+  <div class="row">
+  <div class="container ">
+  <div class="card text-center viewcomplaint">
+  <div class="card-header">
+   <strong>	<%= user.firstname %> <%= user.secondname %></strong>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text">Roll No :- <%= user.roll %></h5>
+    <h5 class="card-title text">Reg No :- <%= user.regno %></h5>
+    <h5 class="card-title text">Branch :- <%= user.branch %></h5>
+    <a href="user/<%= user._id %>" class="btn btn-primary active">View Student</a>
+  </div>
+</div></div></div>
+<% } else if(!user._id.equals(currentUser.id)){ %>
+ <div class="row">
+  <div class="container ">
+  <div class="card text-center viewcomplaint">
+  <div class="card-header">
+   <strong>	<%= user.firstname %> <%= user.secondname %></strong>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text">Teacher No :- <%= user.roll %></h5>
+    <h5 class="card-title text">Teacher Id :- <%= user.regno %></h5>
+    <h5 class="card-title text">Branch :- <%= user.branch %></h5>
+    <a href="user/<%= user._id %>" class="btn btn-primary active">View Staff</a>
+  </div>
+</div></div></div>
+
+<% }}); %>
+	<% include ./partials/footer %>		
+	
