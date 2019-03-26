@@ -4,15 +4,17 @@ var express     = require("express"),
     LocalStrategy = require("passport-local"),
     User        = require("../models/studentUser"),
      nodemailer = require("nodemailer"),
-    Notice       =require("../models/Notice"),
-     smtpTransport = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-        user: "anmolduggal619@gmail.com",
-        pass: "anmol@114307"
-    }
-}),
-     rand,mailOptions,host,link;
+    Notice       =require("../models/Notice");
+     var gmailNode = require('gmail-node');
+var clientSecret = {installed:{
+    client_id:"133586172988-mluc0qbict30ok3rmrrdbla1mv9df433.apps.googleusercontent.com",
+    project_id:"inc-ognito",
+    auth_uri:"https://accounts.google.com/o/oauth2/auth",
+    token_uri:"https://oauth2.googleapis.com/token",
+    auth_provider_x509_cert_url:"https://www.googleapis.com/oauth2/v1/certs",
+    client_secret:"__DNkR9rqfgeB3sZz-NH8fW7",
+    redirect_uris:["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}};
+    gmailNode.init(clientSecret, './token.json', function(err,data){ });
 
 router.post("/login",isnotLoggedIn,passport.authenticate("local", 
     {
@@ -53,25 +55,8 @@ var newUser = new User({username: req.body.emailid,
             return res.redirct("/staffsignup");
         }
         else{
-              host=req.get('host');
-            link="http://"+req.get('host')+"/verify";
-            mailOptions={
-            to : req.body.emailid,
-            subject : "Please confirm your Email account",
-            html : "Hello,<br>Welcome to Mnnit Student Welfare<br>Your Verification Code is <br>"+rand+"<br><a href='http://localhost:3000/verify'>Verification Page</a>" 
-    }
-    console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function(error, response){
-     if(error){
-            console.log(error);
-        res.end("error");
-     }else{
-            console.log("Message sent: " + response.message);
-        res.end("sent");
-         }
-});
-        req.flash("success","You are signed up as Admin,  A Verification Email has been sent to you!");
-           res.redirect("/verify"); 
+            verificationMail(rand,req.body.emailid,req,res);
+
       }});  
     
 }
@@ -88,25 +73,8 @@ User.register(newUser, req.body.password, function(err, user){
             return res.render("signup");
         }
        else{
-          host=req.get('host');
-            link="http://"+req.get('host')+"/verify";
-            mailOptions={
-            to : req.body.emailid,
-            subject : "Please confirm your Email account",
-            html : "Hello,<br>Welcome to Mnnit Student Welfare<br>Your Verification Code is<br>"+rand+"<br><a href='http://localhost:3000/verify'>Verification Page</a>" 
-    }
-    console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function(error, response){
-     if(error){
-            console.log(error);
-        res.end("error");
-     }else{
-            console.log("Message sent: " + response.message);
-        res.end("sent");
-         }
-});
-            req.flash("success","Congratulations you have assigned a new Staff, A Verification Email has been sent to the Staff Please ask him/her to verify!");
-           res.redirect("/home"); 
+        verificationMail(rand,req.body.emailid,req,res);
+ 
       }});  
     } });
 
@@ -123,9 +91,9 @@ router.post('/verify',isnotLoggedIn,function(req,res){
     }
     else{
       if(found!=null&&found.isVerified==false){
-        console.log("elseif");
         if(req.body.verify==found.verifycode){
-           User.findOneAndUpdate({emailid:req.body.email},{$set:{isVerified:true},$unset:{verifycode:1}},function(err,founduser){
+            console.log("ture");
+            User.findOneAndUpdate({emailid:req.body.email},{$set:{isVerified:true},$unset:{verifycode:1}},function(err,founduser){
             if(err)
             {
                 console.log(err);
@@ -139,7 +107,7 @@ router.post('/verify',isnotLoggedIn,function(req,res){
         else{
             console.log(err);
               req.flash("error","Wrong code");
-        res.redirect("/verify");
+            res.redirect("/verify");
        } }
         else{
             req.flash("error","Your Account is already verified Please login");
@@ -176,25 +144,8 @@ User.register(newUser, req.body.password, function(err, user){
         }
         else{
             
-            host=req.get('host');
-            link="http://"+req.get('host')+"/verify";
-            mailOptions={
-            to : req.body.emailid,
-            subject : "Please confirm your Email account",
-            html : "Hello,<br>Welcome to Mnnit Student Welfare<br>Your Verification Code is<br>"+rand +"<br><a href='http://localhost:3000/verify'>Verification Page</a>" 
-    }
-    console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function(error, response){
-     if(error){
-            console.log(error);
-        res.end("error");
-     }else{
-            console.log("Message sent: " + response.message);
-        res.end("sent");
-         }
-});
-            req.flash("success","You are signed up. A Verification Email has been sent to you! ");
-            res.redirect("/login");
+            verificationMail(rand,req.body.emailid,req,res);
+        
         }
    });});
 
@@ -354,5 +305,23 @@ function isAdmin(req,res,next){
         req.flash("error","You are nor Permitted");
         res.redirect("/home");
     }
+}
+function verificationMail(rand,email,req,res){
+    let host=req.get('host');
+    let link="http://"+req.get('host')+"/verify";
+    var emailMessage ={
+    to : email,
+    subject : "Please confirm your Email account",
+    message : "Hello,<br>Welcome to Incog<br>Your Verification Code is<br><h2><strong>"+rand +"</strong></h2><br><a href='"+link+"'>Verification Page</a>" 
+        }
+ gmailNode.sendHTML(emailMessage, function (err, data){
+    if(err){
+        console.log(err);
+        req.flash("error","Contact Support ");
+        res.redirect("/");
+    }
+    req.flash("success","You are signed up. A Verification Email has been sent to you! ");
+    res.redirect("/verify");
+    });
 }
 module.exports=router;
